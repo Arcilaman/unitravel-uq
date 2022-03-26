@@ -1,8 +1,11 @@
 package co.edu.uniquindio.unitravel.entidades;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Entity
@@ -12,16 +15,17 @@ public class Persona implements Serializable {
     private String cedula;
     private String nombre;
     private String email;
-    private String telefono;
+
+    @ElementCollection
+    private Map<String, String> telefono;
 
     public Persona() {
     }
 
-    public Persona(String cedula, String nombre, String email, String telefono) {
+    public Persona(String cedula, String nombre, String email) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.email = email;
-        this.telefono = telefono;
     }
 
     public String getCedula() {
@@ -48,11 +52,11 @@ public class Persona implements Serializable {
         this.email = email;
     }
 
-    public String getTelefono() {
+    public Map<String, String> getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(Map<String, String> telefono) {
         this.telefono = telefono;
     }
 
