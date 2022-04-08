@@ -14,11 +14,10 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Ciudad implements Serializable {
+public class ReservaSilla implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
 
-    private String nombre;
-
+    private Double precio;
 }

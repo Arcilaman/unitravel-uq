@@ -8,29 +8,18 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.Positive;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Autor {
-
+public class Caracterstica implements Serializable {
     @Id
-    @Column(length = 10)
     @EqualsAndHashCode.Include
     private String codigo;
 
-    @Column(nullable = false, length = 200)
     private String nombre;
 
-    @Positive
-    @Column(nullable = false)
-    private int anioNacimiento;
-
-    @ManyToMany(mappedBy = "autores")
-    private List<Libro> libros;
 }

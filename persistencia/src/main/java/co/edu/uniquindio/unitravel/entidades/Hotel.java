@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,12 +10,18 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Ciudad implements Serializable {
+public class Hotel implements Serializable {
     @Id
     @EqualsAndHashCode.Include
-    private String codigo;
+    private Integer codigo;
 
     private String nombre;
 
+    private String direccion;
+
+    private String telefono;
+
+    private int numEstrellas;
 }
