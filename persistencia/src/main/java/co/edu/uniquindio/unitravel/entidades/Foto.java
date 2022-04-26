@@ -1,37 +1,33 @@
 package co.edu.uniquindio.unitravel.entidades;
 
 import lombok.*;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
-public class Comentario implements Serializable {
+public class Foto implements Serializable {
     @Id
-    @EqualsAndHashCode.Include
     @ToString.Include
+    @EqualsAndHashCode.Include
     private int codigo;
 
+//    @URL
     @ToString.Include
-    private String comentario;
-
-    @ToString.Include
-    private float calificacion;
-
-    @ToString.Include
-    private Date fechaCalificacion;
+    private String url;
 
     @ManyToOne
     private Hotel hotel;
 
     @ManyToOne
-    private Usuario usuario;
+    private Habitacion habitacion;
 }

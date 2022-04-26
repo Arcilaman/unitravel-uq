@@ -6,32 +6,27 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
+ @Setter
 @Getter
-@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
-public class Comentario implements Serializable {
+public class Vehiculo implements Serializable {
+
     @Id
+    @ToString.Include
     @EqualsAndHashCode.Include
-    @ToString.Include
-    private int codigo;
+    private String placa;
 
     @ToString.Include
-    private String comentario;
+    private String tipo;
 
     @ToString.Include
-    private float calificacion;
-
-    @ToString.Include
-    private Date fechaCalificacion;
+    private Double precio;
 
     @ManyToOne
-    private Hotel hotel;
-
-    @ManyToOne
-    private Usuario usuario;
+    private Reserva reserva;
 }

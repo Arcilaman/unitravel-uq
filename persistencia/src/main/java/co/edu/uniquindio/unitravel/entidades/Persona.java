@@ -19,15 +19,19 @@ public class Persona implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     @Column(length = 10)
+    @ToString.Include
     private String cedula;
 
     @Column(nullable = false, length = 100)
+    @ToString.Include
     private String nombre;
 
+    @ToString.Include
     @Email
     @Column(nullable = false, unique = true, length = 150)
     private String correo;
 
+    @ToString.Include
     @Column(nullable = false, length = 50)
     private String password;
 }
