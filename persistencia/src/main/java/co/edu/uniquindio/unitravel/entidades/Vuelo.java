@@ -2,10 +2,7 @@ package co.edu.uniquindio.unitravel.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,17 +16,23 @@ public class Vuelo implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     @ToString.Include
+    @Column(length = 10)
     private int codigo;
 
     @ToString.Include
+    @Column(length = 10, nullable = false)
     private String estado;
     @ToString.Include
+    @Column(length = 30, nullable = false)
     private String aerolinea;
 
     @OneToMany(mappedBy = "vuelo")
     private List<Silla> sillas;
 
-    @ManyToMany
-    private List<Ciudad> ciudades;
+    @ManyToOne
+    private Ciudad ciudadOrigen;
+
+    @ManyToOne
+    private Ciudad ciudadDestino;
 
 }

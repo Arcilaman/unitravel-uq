@@ -2,10 +2,7 @@ package co.edu.uniquindio.unitravel.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,6 +19,7 @@ public class Hotel implements Serializable {
     private int codigo;
 
     @ToString.Include
+    @Column(length = 50, nullable = false)
     private String nombre;
 
     @ToString.Include

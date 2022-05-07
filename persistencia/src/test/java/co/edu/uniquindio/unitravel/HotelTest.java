@@ -3,6 +3,7 @@ package co.edu.uniquindio.unitravel;
 import co.edu.uniquindio.unitravel.entidades.Hotel;
 import co.edu.uniquindio.unitravel.entidades.Usuario;
 import co.edu.uniquindio.unitravel.repositorios.HotelRepo;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -49,7 +50,23 @@ public class HotelTest {
         hoteles.forEach(System.out::println);
     }
 
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerNombreCiudad(){
+        String nombreCiudad = hotelRepo.obtenerNombreciudad(2);
+        System.out.println(nombreCiudad);
 
+        Assertions.assertEquals("Armenia", nombreCiudad);
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerListaHoteles(){
+        List<Hotel> hoteles = hotelRepo.obtenerHoteles("Armenia");
+        hoteles.forEach(System.out::println);
+
+//        Assertions.assertEquals("Armenia", nombreCiudad);
+    }
 
 
 

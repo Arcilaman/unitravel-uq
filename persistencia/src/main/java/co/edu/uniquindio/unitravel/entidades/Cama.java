@@ -2,6 +2,7 @@ package co.edu.uniquindio.unitravel.entidades;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -21,6 +22,7 @@ public class Cama {
     private int codigo;
 
     @ToString.Include
+    @Column(length = 20, nullable = false)
     private String tipo;
 
     @ManyToMany

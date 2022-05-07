@@ -1,35 +1,30 @@
 package co.edu.uniquindio.unitravel.entidades;
 
+
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.io.Serializable;
+import java.util.function.DoubleBinaryOperator;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
-public class Vehiculo implements Serializable {
-
+public class Reserva_Habitacion {
 
     @Id
     @ToString.Include
-    @EqualsAndHashCode.Include
-    @Column(length = 6, nullable = false)
-    private String placa;
-
-    @ToString.Include
-    @Column(length = 30, nullable = false)
-    private String tipo;
+    private int codigo;
 
     @ToString.Include
     private Double precio;
+
+    @ManyToOne
+    private Habitacion habitacion;
 
     @ManyToOne
     private Reserva reserva;

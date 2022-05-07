@@ -2,10 +2,7 @@ package co.edu.uniquindio.unitravel.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,6 +19,7 @@ public class Ciudad implements Serializable {
     private int codigo;
 
     @ToString.Include
+    @Column(length = 50, nullable = false)
     private String nombre;
 
     @OneToMany(mappedBy = "ciudad")
@@ -30,7 +28,9 @@ public class Ciudad implements Serializable {
     @OneToMany(mappedBy = "ciudad")
     private List<Usuario> usuarios;
 
-    @ManyToMany(mappedBy = "ciudades")
-    private List<Vuelo> vuelos;
+    @OneToMany(mappedBy = "ciudadOrigen")
+    private  List<Vuelo> vuelosOrigen;
 
+    @OneToMany(mappedBy = "ciudadDestino")
+    private List<Vuelo> vuelosDestino;
 }

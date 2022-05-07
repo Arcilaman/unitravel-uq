@@ -1,9 +1,11 @@
 package co.edu.uniquindio.unitravel.entidades;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
 public class Reserva implements Serializable {
@@ -19,14 +22,15 @@ public class Reserva implements Serializable {
     @ToString.Include
     private int codigo;
     @ToString.Include
-    private Date fechaReserva;
+    private LocalDate fechaReserva;
     @ToString.Include
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
     @ToString.Include
-    private Date fechaFin;
+    private LocalDate fechaFin;
     @ToString.Include
     private Double precioTotal;
     @ToString.Include
+    @Column(length = 10, nullable = false)
     private String estado;
     @ToString.Include
     private int cantidadPersona;
@@ -34,8 +38,7 @@ public class Reserva implements Serializable {
     @ManyToOne
     private Usuario usuario;
 
-    @ManyToMany
-    private List<Habitacion> habitaciones;
+
 
     @OneToMany(mappedBy = "reserva")
     private List<Vehiculo> vehiculos;
@@ -43,8 +46,11 @@ public class Reserva implements Serializable {
     @OneToMany(mappedBy = "reserva")
     private List<Actividad> actividades;
 
-    @ManyToMany(mappedBy = "reservas")
-    private List<Silla> sillas;
+    @OneToMany(mappedBy = "reserva")
+    private List<Reserva_Silla> reserva_sillas;
+
+    @OneToMany(mappedBy = "reserva")
+    private List<Reserva_Habitacion> reserva_habitaciones;
 
 
 }

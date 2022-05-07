@@ -1,5 +1,6 @@
 package co.edu.uniquindio.unitravel;
 
+import co.edu.uniquindio.unitravel.entidades.Reserva;
 import co.edu.uniquindio.unitravel.entidades.Usuario;
 import co.edu.uniquindio.unitravel.repositorios.UsuarioRepo;
 import org.junit.jupiter.api.Assertions;
@@ -98,5 +99,33 @@ public class UsusarioTest {
     public void listarUsuariosSort(){
         List<Usuario> usuarios = usuarioRepo.findAll(Sort.by("nombre"));
         usuarios.forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarReservas(){
+        List<Reserva> reservas = usuarioRepo.obtenerListaReservas("ana@gmail.com");
+        reservas.forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarComentarios(){
+        List<Object[]> comentarios = usuarioRepo.obtenerComentarios();
+        comentarios.forEach(c -> System.out.println(c[0]+ " - "+c[1]));
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarReservasTotales(){
+        List<Object[]> reservas = usuarioRepo.obtenerReservasTotales();
+        reservas.forEach(c -> System.out.println(c[0]+ " - "+c[1]));
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarUsuarioTelefono(){
+        List<String> telefonos = usuarioRepo.obtenerUsuariosTelefonos();
+        telefonos.forEach(System.out::println);
     }
 }

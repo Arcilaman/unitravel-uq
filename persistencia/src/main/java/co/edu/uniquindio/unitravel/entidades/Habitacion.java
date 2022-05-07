@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
 public class Habitacion implements Serializable {
@@ -28,8 +29,8 @@ public class Habitacion implements Serializable {
     @ManyToOne
     private Hotel hotel;
 
-    @ManyToMany(mappedBy = "habitaciones")
-    private List<Reserva> reservas;
+    @OneToMany(mappedBy = "habitacion")
+    private List<Reserva_Habitacion> reserva_habitaciones;
 
     @OneToMany (mappedBy = "habitacion")
     private List<Caracteristica> caracteristicas;

@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -24,7 +26,9 @@ public class Comentario implements Serializable {
     private String comentario;
 
     @ToString.Include
-    private float calificacion;
+    @PositiveOrZero
+    @Max(5)
+    private int calificacion;
 
     @ToString.Include
     private Date fechaCalificacion;

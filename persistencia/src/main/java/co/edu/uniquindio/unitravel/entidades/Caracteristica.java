@@ -2,6 +2,7 @@ package co.edu.uniquindio.unitravel.entidades;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -20,6 +21,7 @@ public class Caracteristica implements Serializable {
     private int codigo;
 
     @ToString.Include
+    @Column(length = 30, nullable = false)
     private String nombre;
 
     @ManyToOne
