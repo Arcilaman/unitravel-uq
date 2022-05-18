@@ -1,4 +1,4 @@
-package co.edu.uniquindio.unitravel.proyecto.servicios;
+package co.edu.uniquindio.unitravel.servicios;
 
 import co.edu.uniquindio.unitravel.entidades.Comentario;
 import co.edu.uniquindio.unitravel.entidades.Hotel;

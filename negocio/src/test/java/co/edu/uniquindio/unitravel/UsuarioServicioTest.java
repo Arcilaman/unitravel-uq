@@ -1,7 +1,7 @@
 package co.edu.uniquindio.unitravel;
 
 import co.edu.uniquindio.unitravel.entidades.Usuario;
-import co.edu.uniquindio.unitravel.proyecto.servicios.UsuarioServicio;
+import co.edu.uniquindio.unitravel.servicios.UsuarioServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class UsuarioServicioTest {
     @Test
     @Sql("classpath:dataset.sql")
     public void registarUsuarioTest(){
-        Usuario u= new Usuario("2345","Pablito","pablo67@gmail.com","osito123");
+        Usuario u= new Usuario("0098","Leidy","leidy@gmail.com","osito123");
 
         List<String> telfs = new ArrayList<>();
         telfs.add("872872");
@@ -36,8 +36,8 @@ public class UsuarioServicioTest {
             Assertions.assertNotNull(guardado);
         } catch (Exception e) {
 
-            // e.printStackTrace();
-
+             e.printStackTrace();
+//
             Assertions.assertTrue(false);
         }
     }
@@ -45,7 +45,7 @@ public class UsuarioServicioTest {
     @Test
     @Sql("classpath:dataset.sql")
     public void actualizarUsuarioTest(){
-        Usuario usuario = usuarioServicio.ObtenerUsuario("9223");
+        Usuario usuario = usuarioServicio.ObtenerUsuario("1094");
         usuario.setPassword("817abc");
 
         try {
@@ -64,8 +64,8 @@ public class UsuarioServicioTest {
     @Sql("classpath:dataset.sql")
     public void elimarUsuarioTest(){
         try {
-            usuarioServicio.eliminarUsuario("6767");
-            Usuario eliminado = usuarioServicio.ObtenerUsuario("6767");
+            usuarioServicio.eliminarUsuario("1094");
+            Usuario eliminado = usuarioServicio.ObtenerUsuario("1094");
             Assertions.assertNull(eliminado);
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class UsuarioServicioTest {
     @Sql("classpath:dataset.sql")
     public void loginUsuarioTest(){
         try {
-            Usuario usuario= usuarioServicio.validarLogin("pepito@gmail.com","45545");
+            Usuario usuario= usuarioServicio.validarLogin("pepe@gmail.com","1234");
             Assertions.assertNotNull(usuario);
         } catch (Exception e) {
             e.printStackTrace();

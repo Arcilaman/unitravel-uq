@@ -4,7 +4,6 @@ import co.edu.uniquindio.unitravel.dto.ComentarioDto;
 import co.edu.uniquindio.unitravel.entidades.Comentario;
 import co.edu.uniquindio.unitravel.entidades.Hotel;
 import co.edu.uniquindio.unitravel.entidades.Usuario;
-import co.edu.uniquindio.unitravel.entidades.Vuelo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,8 +18,8 @@ public interface ComentarioRepo extends JpaRepository<Comentario, Integer> {
      * @param codigocomentario
      * @return
      */
-    @Query("select u from Comentario  c join c.usuario u where c.codigo = :codigoComentario")
-   List <Usuario> obtenerCliente (int codigocomentario);
+    @Query("select c.usuario from Comentario c where c.codigo = :codigoComentario")
+   Usuario obtenerCliente (int codigoComentario);
 
 
     /**
@@ -29,7 +28,7 @@ public interface ComentarioRepo extends JpaRepository<Comentario, Integer> {
      * @return
      */
     @Query("select h from Comentario  c join c.hotel h where c.codigo = :codigoComentario")
-    List <Hotel> obtenerHotel (int codigocomentario);
+    List <Hotel> obtenerHotel (int codigoComentario);
 
     /**
      * retorna comentarios de un hotel dado el codigo del hotel

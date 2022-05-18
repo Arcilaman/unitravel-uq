@@ -1,17 +1,19 @@
-package co.edu.uniquindio.unitravel.proyecto.servicios;
+package co.edu.uniquindio.unitravel.servicios;
 
 import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.repositorios.ComentarioRepo;
 import co.edu.uniquindio.unitravel.repositorios.HotelRepo;
 import co.edu.uniquindio.unitravel.repositorios.ReservaRepo;
 import co.edu.uniquindio.unitravel.repositorios.UsuarioRepo;
+import co.edu.uniquindio.unitravel.servicios.UsuarioServicio;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioServicioImpl implements UsuarioServicio{
+public class UsuarioServicioImpl implements UsuarioServicio {
+
 
     private UsuarioRepo usuarioRepo;
 
@@ -42,7 +44,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
             throw new Exception("El codigo del usuario ya esta registrado");
         }
 
-        Usuario usuarioEmail = ObtenerUsuario(usuario.getCorreo());
+        Usuario usuarioEmail = buscarPorEmail(usuario.getCorreo());
 
         if(usuarioEmail!= null){
             throw new Exception("El correo del usuario ya esta registrado");
@@ -52,13 +54,15 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
 
-    public  Usuario buscarPorEmail(String email){
-        return usuarioRepo.obtenerUsuarioCorreo(email);
+    public  Usuario buscarPorEmail(String email)
+    {
+        return usuarioRepo.findAllByCorreo(email).orElse(null);
+
     }
     @Override
     public Usuario actualizarUsuario(Usuario usuario) throws Exception{
         Usuario buscado= ObtenerUsuario(usuario.getCedula());
-        if(usuario!=null){
+        if(usuario==null){
             throw new Exception(" el usuario no esxiste");
         }
         return usuarioRepo.save(usuario);
@@ -76,7 +80,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     @Override
     public void eliminarUsuario(String cedula) throws  Exception{
         Usuario usuario= ObtenerUsuario(cedula);
-        if(usuario!=null){
+        if(usuario==null){
             throw new Exception(" el usuario no esxiste");
         }
         usuarioRepo.delete(usuario);
