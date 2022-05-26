@@ -45,4 +45,6 @@ public interface UsuarioRepo extends JpaRepository<Usuario, String>{
 
     @Query("select distinct t from Usuario u join u.telefonos t")
     List<String> obtenerUsuariosTelefonos();
+
+    Optional<Usuario> findByCorreo(String email);
 }

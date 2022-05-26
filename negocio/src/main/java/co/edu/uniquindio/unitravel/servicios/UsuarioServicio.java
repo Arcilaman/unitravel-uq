@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.servicios;
 
-import co.edu.uniquindio.unitravel.entidades.Comentario;
-import co.edu.uniquindio.unitravel.entidades.Hotel;
-import co.edu.uniquindio.unitravel.entidades.Reserva;
-import co.edu.uniquindio.unitravel.entidades.Usuario;
+import co.edu.uniquindio.unitravel.entidades.*;
 
 import java.util.List;
 
@@ -29,11 +26,13 @@ public interface UsuarioServicio {
 
     Reserva modificarReserva(Reserva reserva) throws Exception;
 
+    Reserva obtenerReserva(int codReserva) throws  Exception;
+
     List<Hotel> buscarHotelesCiudad(String nombreCiudad);
 
     List<Reserva> listarReservas(String emailUsuario);
 
-   // void recuperarPassword(String email) throws Exception;
+    void recuperarPassword(String email) throws Exception;
 
 
 

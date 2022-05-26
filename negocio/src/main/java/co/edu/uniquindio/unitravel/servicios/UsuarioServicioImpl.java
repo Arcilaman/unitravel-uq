@@ -16,14 +16,12 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 
     private UsuarioRepo usuarioRepo;
-
+    private EmailServicio emailServicio;
     private ComentarioRepo comentarioRepo;
-
     private ReservaRepo reservaRepo;
-
     private HotelRepo hotelRepo;
 
-    //private EmailServicio emailServicio;
+//    private EmailServicio emailServicio;
 
 
     public UsuarioServicioImpl(UsuarioRepo usuarioRepo, ComentarioRepo comentarioRepo, ReservaRepo reservaRepo, HotelRepo hotelRepo){
@@ -32,7 +30,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         this.comentarioRepo=comentarioRepo;
         this.reservaRepo = reservaRepo;
         this.hotelRepo = hotelRepo;
-        //this.emailServicio=emailServicio;
+        this.emailServicio=emailServicio;
     }
 
 
@@ -62,7 +60,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     @Override
     public Usuario actualizarUsuario(Usuario usuario) throws Exception{
         Usuario buscado= ObtenerUsuario(usuario.getCedula());
-        if(usuario==null){
+        if(buscado==null){
             throw new Exception(" el usuario no esxiste");
         }
         return usuarioRepo.save(usuario);
@@ -108,6 +106,16 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     @Override
     public Comentario crearComentario(Comentario comentario) throws Exception {
+
+        if(comentarioRepo.obtenerCliente(comentario.getCodigo())== null)
+        {
+            throw new Exception("El usuario no existe");
+        }
+
+        if(comentarioRepo.obtenerHotel(comentario.getCodigo())==null)
+        {
+            throw  new Exception("El hotel no existe");
+        }
         return comentarioRepo.save(comentario);
 
 
@@ -115,33 +123,63 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     @Override
     public Reserva hacerReserva(Reserva reserva) throws Exception {
-        List<Reserva_Habitacion> reserva_habitaciones= reserva.getReserva_habitaciones();
 
-        for (int i=0; i < reserva_habitaciones.size() ; i++){
-            //validar que las habitaciones esten disponibles
-            if(reserva_habitaciones.get(i) == null){
-
-            }
+        if (obtenerReserva(reserva.getCodigo()) != null) {
+            System.out.println(reservaRepo.findById(reserva.getCodigo()));
+            throw new Exception("La reserva ya existe");
         }
 
-        //validar disponiblidad de los vuelos,asignar sillas aleatoriamente
+        if (reserva.getFechaReserva().isAfter(reserva.getFechaInicio())) {
+            throw new Exception("La fecha de reserva no puede ser después de la fecha inicio");
+        }
+        if (reserva.getFechaInicio().isAfter(reserva.getFechaFin())) {
+            throw new Exception("La fecha de inicio no puede ser después de la fecha fin");
+        }
+
+//        List<Habitacion> listaHabitacionesReservadas = reservaRepo.
+//                obtenerHabitacionesReservadas(reserva.getFechaInicio(),
+//                        reserva.getFechaFin());
+//        listaHabitacionesReservadas.forEach(System.out::println);
+//        if(!listaHabitacionesReservadas.isEmpty() && !reserva.getReserva_habitaciones().isEmpty()){
+//            for (Reserva_Habitacion reserva_habitacion: reserva.getReserva_habitaciones()) {
+//                Habitacion habitacionReserva = reserva_habitacion.getHabitacion();
+//                for ( Habitacion habitacion: listaHabitacionesReservadas ) {
+//                    if(habitacionReserva.equals(habitacion))
+//                    {
+//                        throw new Exception("La habitación ya está reservada en esa fecha");
+//                    }
+//                }
+//            }
+//        }
+        Habitacion habitacion = reserva.getReserva_habitaciones().get(0).getHabitacion();
+
+        List<Vuelo> vuelosRecomendados = reservaRepo.recomendarVuelos(reserva.getUsuario().getCiudad().getCodigo(), habitacion.getHotel().getCiudad().getCodigo());
+        vuelosRecomendados.forEach(System.out::println);
 
         return reservaRepo.save(reserva);
     }
 
+
+
+
     @Override
     public void eliminarResserva(Integer codigo) throws Exception {
-        Optional<Reserva> reserva= reservaRepo.findById(codigo);
-        if(reserva.isEmpty()){
+        Reserva reserva = obtenerReserva(codigo);
+        if(reserva==null){
             throw new Exception("la reserva no existe");
         }
-        reservaRepo.delete(reserva.get());
+        reservaRepo.delete(reserva);
 
     }
 
     @Override
     public Reserva modificarReserva(Reserva reserva) throws Exception {
         return null;
+    }
+
+    @Override
+    public Reserva obtenerReserva(int codReserva) throws Exception {
+        return reservaRepo.findById(codReserva).orElse(null);
     }
 
     @Override
@@ -154,14 +192,14 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         return usuarioRepo.obtenerListaReservas(emailUsuario);
     }
 
-//    @Override
-//    public void recuperarPassword(String email) throws Exception {
-//        Optional<Usuario> usuario= usuarioRepo.findByCorreo(email);
-//        if(usuario.isEmpty()){
-//            throw new Exception("el correo no pertenece a ningun usuario ");
-//        }
-//        String password = usuario.get().getPassword();
-//        emailServicio.enviarEmail("recuperacion de la contraseña ", " hola su contraseña  es"+password,email );
-//
-//    }
+    @Override
+    public void recuperarPassword(String email) throws Exception {
+        Optional<Usuario> usuario= usuarioRepo.findByCorreo(email);
+        if(usuario.isEmpty()){
+            throw new Exception("el correo no pertenece a ningun usuario ");
+        }
+        String password = usuario.get().getPassword();
+        emailServicio.enviarEmail("recuperacion de la contraseña ", " hola su contraseña  es"+password,email );
+
+    }
 }

@@ -15,7 +15,7 @@ public interface ComentarioRepo extends JpaRepository<Comentario, Integer> {
 
     /**
      * retorna el usuario que realizó un comentario dado el codigo del comentario
-     * @param codigocomentario
+     * @param codigoComentario
      * @return
      */
     @Query("select c.usuario from Comentario c where c.codigo = :codigoComentario")
@@ -23,8 +23,8 @@ public interface ComentarioRepo extends JpaRepository<Comentario, Integer> {
 
 
     /**
-     * retorna el usuario que realizó un comentario dado el codigo del comentario
-     * @param codigocomentario
+     * retorna el hotel al que se le realizó un comentario dado el codigo del comentario
+     * @param codigoComentario
      * @return
      */
     @Query("select h from Comentario  c join c.hotel h where c.codigo = :codigoComentario")

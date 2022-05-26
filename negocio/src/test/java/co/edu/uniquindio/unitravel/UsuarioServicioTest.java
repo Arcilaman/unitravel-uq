@@ -1,6 +1,11 @@
 package co.edu.uniquindio.unitravel;
 
+import co.edu.uniquindio.unitravel.entidades.Reserva;
+import co.edu.uniquindio.unitravel.entidades.Reserva_Habitacion;
 import co.edu.uniquindio.unitravel.entidades.Usuario;
+import co.edu.uniquindio.unitravel.repositorios.HabitacionRepo;
+import co.edu.uniquindio.unitravel.repositorios.ReservaRepo;
+import co.edu.uniquindio.unitravel.servicios.EmailServicio;
 import co.edu.uniquindio.unitravel.servicios.UsuarioServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +23,9 @@ import java.util.List;
 public class UsuarioServicioTest {
     @Autowired
     private UsuarioServicio usuarioServicio;
-//    @Autowired
-//    private EmailServicio emailServicio;
+    @Autowired
+    private EmailServicio emailServicio;
+
 
     @Test
     @Sql("classpath:dataset.sql")
@@ -37,6 +44,23 @@ public class UsuarioServicioTest {
         } catch (Exception e) {
 
              e.printStackTrace();
+//
+            Assertions.assertTrue(false);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void crearReservaTest(){
+
+        Reserva r= new Reserva(3, LocalDate.now(),LocalDate.of(2022,05,26),LocalDate.of(2022,6,1),10);
+
+        try {
+            Reserva reservado= usuarioServicio.hacerReserva(r);
+            Assertions.assertNotNull(reservado);
+        } catch (Exception e) {
+
+            e.printStackTrace();
 //
             Assertions.assertTrue(false);
         }
@@ -93,9 +117,9 @@ public class UsuarioServicioTest {
 
     }
 
-//    @Test
-//    @Sql("classpath:dataset.sql")
-//    public void enviarCorreoTest(){
-//        boolean estado = emailServicio.enviarEmail("prueba","Este es un mensaje","yordanes00@gmail.com");
-//    }
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void enviarCorreoTest(){
+        boolean estado = emailServicio.enviarEmail("prueba","Este es un mensaje","juand.arcilae@uqvirtual.edu.co");
+    }
 }

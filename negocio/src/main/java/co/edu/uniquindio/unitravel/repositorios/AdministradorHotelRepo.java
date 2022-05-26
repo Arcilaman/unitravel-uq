@@ -1,17 +1,17 @@
 package co.edu.uniquindio.unitravel.repositorios;
 
-import  co.edu.uniquindio.unitravel.entidades.AdministradorHotel;
-import co.edu.uniquindio.unitravel.entidades.Foto;
-import co.edu.uniquindio.unitravel.entidades.Hotel;
-import co.edu.uniquindio.unitravel.entidades.Vuelo;
+import co.edu.uniquindio.unitravel.entidades.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AdministradorHotelRepo extends JpaRepository<AdministradorHotel, String> {
+
+    Optional<AdministradorHotel> findAllByCorreo(String correo);
 
     /**
      * retorna el administrador de un hotel dado el código del hotel

@@ -12,27 +12,19 @@
     <title>Página de Inicio</title>
 </h:head>
 <h:body>
-    <div id="encabezado" >
-        <ul>
-            <li> <a href="">Inicio</a> </li>
-            <li> <a href="registrarUsuario.xhtml">Registrarse</a> </li>
-            <li> <a href="crear_hotel.xhtml">Crear hotel</a> </li>
-            <li> <a href="">Listas de hoteles</a> </li>
-            <li> <a href="mis_reservas.xhtml">Listas de mis reservas</a></li>
-        </ul>
-    </div>
+    <h:form>
+        <h:panelGrid columns="2" cellpadding="5" >
 
-    <div id="contenido">
-        <p>Formilario de búsqueda</p>
+            <p:outputLabel value="Atributo1" />
+            <p:inputText value="#{ejemploBean.atributo1}"/>
 
-        <p>Lista de ciudades</p>
+            <p:outputLabel value="Atributo2"/>
+            <p:inputText value="#{ejemploBean.atributo2}" />
 
-        <p>Hoteles recomendados</p>
-    </div>
+        </h:panelGrid>
 
-    <div id="pie_pagina">
-        <p>Unitravel - Universidad del Quindio - 2022</p>
-    </div>
+        <p:commandButton  value="Cambiar valores" action="#{ejemploBean.cambiarValores}" update="@form"/>
+    </h:form>
 </h:body>
 
 </html>

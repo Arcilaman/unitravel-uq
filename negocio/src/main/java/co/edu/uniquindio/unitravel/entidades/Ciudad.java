@@ -1,6 +1,8 @@
 package co.edu.uniquindio.unitravel.entidades;
 
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,10 +15,16 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
 public class Ciudad implements Serializable {
-    @Id
+
+    public Ciudad(int codigo, String nombre) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+    }
+
+    @Id()
     @EqualsAndHashCode.Include
     @ToString.Include
-    private int codigo;
+    private int codigo ;
 
     @ToString.Include
     @Column(length = 50, nullable = false)

@@ -35,6 +35,14 @@ public class Reserva implements Serializable {
     @ToString.Include
     private int cantidadPersona;
 
+    public Reserva(int codigo, LocalDate fechaReserva, LocalDate fechaInicio, LocalDate fechaFin, int cantidadPersona) {
+        this.codigo = codigo;
+        this.fechaReserva = fechaReserva;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.cantidadPersona = cantidadPersona;
+    }
+
     @ManyToOne
     private Usuario usuario;
 
